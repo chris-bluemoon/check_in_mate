@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "794036213594",
+    "project_id": "checkinmate-90557",
+    "storage_bucket": "checkinmate-90557.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794036213594:android:6744012e15e3e40ede8563",
+        "android_client_info": {
+          "package_name": "sg.bluemoon.checkinmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5qPy5zU9EIUaMXeTQ1uSmPh5Qo9shT-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

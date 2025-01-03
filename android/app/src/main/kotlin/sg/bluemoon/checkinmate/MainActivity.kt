@@ -1,4 +1,4 @@
-package com.example.check_in_mate
+package sg.bluemoon.checkinmate
 
 import io.flutter.embedding.android.FlutterActivity
 
