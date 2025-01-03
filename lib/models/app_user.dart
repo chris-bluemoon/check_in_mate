@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class AppUser {
   
-  User({required this.id, 
+  AppUser({required this.id, 
           required this.email, 
           required this.name, 
         }); 
@@ -19,7 +19,7 @@ class User {
   }
 
   // character from firestore
-  factory User.fromFirestore(
+  factory AppUser.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
@@ -28,7 +28,7 @@ class User {
     final data = snapshot.data()!;
 
     // make character instance
-    User user = User(
+    AppUser user = AppUser(
       id: snapshot.id,
       email: data['email'],
       name: data['name'],

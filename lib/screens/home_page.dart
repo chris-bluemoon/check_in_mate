@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:check_in_mate/screens/activity/activity.dart';
 import 'package:check_in_mate/screens/home/check_in.dart';
-import 'package:check_in_mate/screens/settings/settings.dart';
+import 'package:check_in_mate/screens/settings/sign_up/register.dart';
 import 'package:flutter/material.dart';
 
 double? screenWidth;
@@ -31,7 +31,8 @@ class _HomePageState extends State<HomePage> {
   final _pages = [
     const CheckIn(),
     const Activity(),
-    const Settings(),
+    const Register(toggleView: null,),
+    // const Settings(),
   ];
 
   @override
