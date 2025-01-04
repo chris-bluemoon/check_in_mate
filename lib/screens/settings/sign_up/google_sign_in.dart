@@ -53,13 +53,13 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
       email: email,
       name: name,
     ));
-    log('Assigning user');
-    // userLoggedIn = true;
-    Provider.of<ItemStore>(context, listen: false).assignUser(AppUser(
-      id: jointUuid,
-      email: email,
-      name: name,
-    ));
+    // log('Assigning user');
+    // // userLoggedIn = true;
+    // Provider.of<ItemStore>(context, listen: false).assignUser(AppUser(
+    //   id: jointUuid,
+    //   email: email,
+    //   name: name,
+    // ));
     }
   }
 

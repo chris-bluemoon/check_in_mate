@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
 
-  static final refAppUser = FirebaseFirestore.instance
+  static final refAppUsers = FirebaseFirestore.instance
     .collection('appUser')
     .withConverter(
       fromFirestore: AppUser.fromFirestore, 
@@ -11,11 +11,11 @@ class FirestoreService {
   );
 
   static Future<void> addAppUser(AppUser user) async {
-    await refAppUser.doc(user.id).set(user);
+    await refAppUsers.doc(user.id).set(user);
   }
 
   static Future<void> updateAppUser(AppUser user) async {
-    await refAppUser.doc(user.id).update(
+    await refAppUsers.doc(user.id).update(
       {
         'email': user.email,
         'name': user.name
@@ -24,7 +24,7 @@ class FirestoreService {
   }
 
   static Future<QuerySnapshot<AppUser>> getAppUsers() {
-    return refAppUser.get();
+    return refAppUsers.get();
   }
 
   

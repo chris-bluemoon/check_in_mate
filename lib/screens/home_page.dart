@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:check_in_mate/screens/activity/activity.dart';
 import 'package:check_in_mate/screens/home/check_in.dart';
-import 'package:check_in_mate/screens/settings/login/signup.dart';
+import 'package:check_in_mate/screens/settings/sign_up/authenticate.dart';
+import 'package:check_in_mate/services/item_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 double? screenWidth;
 double? screenHeight;
@@ -20,7 +22,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // Fetch database items here
-    log('initstate for home_page');
+    log('About to call load data from initState of HomePage');
+    Provider.of<ItemStore>(context, listen: false).loadData();
     super.initState();
   }
 
@@ -32,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     const CheckIn(),
     const Activity(),
     // const SettingsRoot(),
-    const SignUp(),
+    const Authenticate(),
     // const Settings(),
   ];
 

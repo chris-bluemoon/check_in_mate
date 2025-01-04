@@ -46,6 +46,9 @@ class _SignIn extends State<SignIn> {
         if (r.email == email) {
           found = true;
           log('Setting current user');
+          setState(() {
+            loading = false;
+          });
           Provider.of<ItemStore>(context, listen: false).setCurrentUser();
         } 
       }
@@ -229,6 +232,7 @@ class _SignIn extends State<SignIn> {
                                 }
                               });
                     } else {
+                      log(email);
                       handleFoundLogIn(email);
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     }

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class ItemStore extends ChangeNotifier {
 
-  final List<AppUser> _appUsers = [];
+  List<AppUser> _appUsers = [];
   AppUser _appUser = AppUser(id: '0000', email: 'dummy', name: 'no_user');
   bool _loggedIn = false;
 
@@ -21,40 +21,62 @@ class ItemStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  void assignUser(AppUser user) async {
-    // await FirestoreService.addItem(item);
-    _appUser = user;
-    notifyListeners();
-  }
+  // void assignUser(AppUser user) async {
+  //   // await FirestoreService.addItem(item);
+  //   _appUser = user;
+  //   notifyListeners();
+  // }
 
     Future<dynamic> setCurrentUser() async {
-      AppUser? user = FirebaseAuth.instance.currentUser as AppUser?;
+      User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        List<AppUser> appUsers = this.appUsers;
+        // List<AppUser> appUsers = this.appUsers;
         for (AppUser r in appUsers) {
           if (r.email == user.email) {
-            assignAppUser(r);
+            // assignAppUser(r);
+            _appUser = r;
             _loggedIn = true;
+            // notifyListeners();
           }
         }
+        log('Logged in as database user now set _appUser: ${_appUser.name}');
       } else {
         _loggedIn = false;
       }
       return user;
       // return asda;
     }
-    void assignAppUser(AppUser user) async {
-    // await FirestoreService.addItem(item);
-    _appUser = user;
-    notifyListeners();
+
+  void setLoggedIn(bool loggedIn) {
+    _loggedIn = loggedIn;
+    if (loggedIn == true) {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      final User user = auth.currentUser as User;
+      log(user.uid);
+      log(user.email ?? 'No email');
+      log('Size of appUsers: ${_appUsers.length}'); 
+      try {
+        _appUser = _appUsers.firstWhere((AppUser r) => r.email == user.email);
+      } catch (e) {
+        log(e.toString());
+      }
+      // notifyListeners();
+      log(_appUser.toString());
+    }
   }
 
-    void setLoggedIn(bool loggedIn) {
-    _loggedIn = loggedIn;
-    if (loggedIn == false) {
-      log('Setting logged in to true at setLoggedIn function');
-      _appUser = AppUser(id: '0000', email: 'dummy', name: 'no_user_set');
-      notifyListeners();
-    }
+  loadData() {
+    // FirestoreService.getAppUsers().then((appUsers) {
+      // _appUsers.addAll(appUsers.docs.map((doc) => doc.data()).toList());
+    // });
+    log('Loading data');
+    FirestoreService.getAppUsers().then((querySnapshot) {
+      _appUsers = querySnapshot.docs.map((doc) => doc.data()).toList();
+      for (AppUser r in _appUsers) {
+        log('Loaded in loadData(): ${r.name}');
+      }
+      setLoggedIn(true);
+      // notifyListeners();
+    });
   }
 }

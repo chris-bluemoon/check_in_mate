@@ -82,7 +82,6 @@ class _RegisterPassword extends State<RegisterPassword> {
       for (AppUser r in appUsers) {
         if (r.email == email) {
           found = true;
-         
           Provider.of<ItemStore>(context, listen: false).setCurrentUser();
           break; // fixed this
         } else {
@@ -98,11 +97,11 @@ class _RegisterPassword extends State<RegisterPassword> {
           name: name,
         ));
        
-        Provider.of<ItemStore>(context, listen: false).assignUser(AppUser(
-          id: jointUuid,
-          email: email,
-          name: name,
-        ));
+        // Provider.of<ItemStore>(context, listen: false).assignUser(AppUser(
+        //   id: jointUuid,
+        //   email: email,
+        //   name: name,
+        // ));
       }
        
     }
