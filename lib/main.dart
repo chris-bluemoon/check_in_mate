@@ -1,5 +1,7 @@
 import 'package:check_in_mate/screens/home_page.dart';
+import 'package:check_in_mate/screens/settings/login/signup.dart';
 import 'package:check_in_mate/services/item_store.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,10 +22,16 @@ void main() async {
     create: (context) => ItemStore(),
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => const HomePage(),
-        // '/faqs': (context) => const FAQs(),
-      },
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(), 
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            Provider.of<ItemStore>(context, listen: false).setLoggedIn(true);  
+            return const HomePage();
+          } else {
+            return const SignUp();
+          }
+        })
     ),
   ));
 }

@@ -1,5 +1,8 @@
 
+import 'package:check_in_mate/screens/home_page.dart';
+import 'package:check_in_mate/services/item_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar(this.title, {super.key});
@@ -17,6 +20,16 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(title),
       centerTitle: true,
+      actions: (Provider.of<ItemStore>(context, listen: false).loggedIn) ? [
+        IconButton(
+          icon: const Icon(Icons.logout),
+          onPressed: () {
+            Provider.of<ItemStore>(context, listen: false).setLoggedIn(false);
+            Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomePage()));
+          },
+        )
+      ] : null,
     );
   }
 }

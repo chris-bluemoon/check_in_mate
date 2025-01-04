@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:check_in_mate/models/app_user.dart';
 import 'package:check_in_mate/screens/settings/sign_up/auth.dart';
 import 'package:check_in_mate/services/item_store.dart';
@@ -73,15 +75,15 @@ class _RegisterPassword extends State<RegisterPassword> {
 
     void handleNewLogIn(String email, String name) {
      
-      // Provider.of<ItemStore>(context, listen: false).setLoggedIn(true);
-      List<AppUser> users =
-          Provider.of<ItemStore>(context, listen: false).users;
+      Provider.of<ItemStore>(context, listen: false).setLoggedIn(true);
+      List<AppUser> appUsers =
+          Provider.of<ItemStore>(context, listen: false).appUsers;
      
-      for (AppUser r in users) {
+      for (AppUser r in appUsers) {
         if (r.email == email) {
           found = true;
          
-          // Provider.of<ItemStore>(context, listen: false).setCurrentUser();
+          Provider.of<ItemStore>(context, listen: false).setCurrentUser();
           break; // fixed this
         } else {
           found = false;
@@ -90,37 +92,20 @@ class _RegisterPassword extends State<RegisterPassword> {
       if (found == false) {
        
         String jointUuid = uuid.v4();
-        Provider.of<ItemStore>(context, listen: false).addUser(AppUser(
+        Provider.of<ItemStore>(context, listen: false).addAppUser(AppUser(
           id: jointUuid,
           email: email,
           name: name,
         ));
        
-        // userLoggedIn = true;
-        // Provider.of<ItemStore>(context, listen: false).assignUser(user(
-        //   id: jointUuid,
-        //   email: email,
-        //   name: name,
-        //   size: 0,
-        //   address: '',
-        //   countryCode: '+66',
-        //   phoneNum: '',
-        //   favourites: [''],
-        //   fittings: [],
-        //   settings: ['BANGKOK', 'CM', 'CM', 'KG'],
-        //   verified: 'not started',
-        //   imagePath: '',
-        //   creationDate: DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()) 
-        // ));
+        Provider.of<ItemStore>(context, listen: false).assignUser(AppUser(
+          id: jointUuid,
+          email: email,
+          name: name,
+        ));
       }
        
-        // Provider.of<ItemStore>(context, listen: false).populateFavourites();
-       
-        // Provider.of<ItemStore>(context, listen: false).populateFittings();
     }
-
-    // NEW PASSWORD CODE
-  
 
     return loading ? const Loading() : Scaffold(
       key: _formKey,
@@ -309,7 +294,7 @@ class _RegisterPassword extends State<RegisterPassword> {
                     dynamic result =
                         await _auth.registerWithEmailAndPassword(widget.email, password);
                     if (result == null) {
-                     
+                      log('registerWithEmailAndPassword returned null');
                       setState(() => loading = false);
                       showDialog(
                         barrierDismissible: false,
@@ -352,6 +337,7 @@ class _RegisterPassword extends State<RegisterPassword> {
                                 _formKey.currentState!.reset();
                               });
                     } else {
+                      log('Registerwithemailandpassword returned ${result.toString()}');
                       handleNewLogIn(widget.email, widget.name);
                      
                       Navigator.of(context).popUntil((route) => route.isFirst);

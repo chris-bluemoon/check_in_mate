@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:check_in_mate/models/app_user.dart';
 import 'package:check_in_mate/screens/settings/sign_up/auth.dart';
 import 'package:check_in_mate/services/item_store.dart';
@@ -37,14 +39,14 @@ class _SignIn extends State<SignIn> {
     void handleFoundLogIn(String email) {
       // Provider.of<ItemStore>(context, listen: false).setLoggedIn(true);
       List<AppUser> users =
-          Provider.of<ItemStore>(context, listen: false).users;
+          Provider.of<ItemStore>(context, listen: false).appUsers;
       found = false;
      
       for (AppUser r in users) {
         if (r.email == email) {
           found = true;
-         
-          // Provider.of<ItemStore>(context, listen: false).setCurrentUser();
+          log('Setting current user');
+          Provider.of<ItemStore>(context, listen: false).setCurrentUser();
         } 
       }
       if (found == false) {
