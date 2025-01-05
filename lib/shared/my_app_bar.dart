@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:check_in_mate/screens/home_page.dart';
 import 'package:check_in_mate/services/item_store.dart';
 import 'package:flutter/material.dart';
@@ -20,16 +22,23 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(title),
       centerTitle: true,
-      actions: (Provider.of<ItemStore>(context, listen: false).loggedIn) ? [
-        IconButton(
-          icon: const Icon(Icons.logout),
-          onPressed: () {
-            Provider.of<ItemStore>(context, listen: false).setLoggedIn(false);
-            Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const HomePage()));
-          },
-        )
-      ] : null,
-    );
+      actions: [
+        Consumer<ItemStore>(builder: (context, value, child) {
+          if (Provider.of<ItemStore>(context, listen: false).loggedIn) {
+            log('Logged in, showing exit icon');
+            return IconButton(
+              icon: const Icon(Icons.logout),
+                onPressed: () {
+                  Provider.of<ItemStore>(context, listen: false).setLoggedIn(false);
+                  Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const HomePage()));
+              },
+          );} else {
+            log('NOT LOGGED IN!');
+            return Container(); 
+          }
+        }),
+      ],
+      );
   }
 }

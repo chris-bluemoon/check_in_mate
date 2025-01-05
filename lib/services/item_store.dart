@@ -52,17 +52,16 @@ class ItemStore extends ChangeNotifier {
     if (loggedIn == true) {
       final FirebaseAuth auth = FirebaseAuth.instance;
       final User user = auth.currentUser as User;
-      log(user.uid);
-      log(user.email ?? 'No email');
-      log('Size of appUsers: ${_appUsers.length}'); 
       try {
         _appUser = _appUsers.firstWhere((AppUser r) => r.email == user.email);
       } catch (e) {
         log(e.toString());
       }
-      // notifyListeners();
-      log(_appUser.toString());
+    } else {
+      FirebaseAuth.instance.signOut();
+      log('Set logged in to false');  
     }
+      notifyListeners();
   }
 
   loadData() {

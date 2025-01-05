@@ -16,5 +16,5 @@ class CheckIn extends StatelessWidget {
           child: const Text('CHECK IN'))
       ],)
     );
+    }
   }
-}
