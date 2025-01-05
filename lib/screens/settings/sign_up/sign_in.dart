@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:check_in_mate/models/app_user.dart';
+import 'package:check_in_mate/screens/home_page.dart';
 import 'package:check_in_mate/screens/settings/sign_up/auth.dart';
 import 'package:check_in_mate/services/item_store.dart';
 import 'package:check_in_mate/shared/constants.dart';
@@ -37,7 +38,6 @@ class _SignIn extends State<SignIn> {
     double width = MediaQuery.of(context).size.width;
 
     void handleFoundLogIn(String email) {
-      // Provider.of<ItemStore>(context, listen: false).setLoggedIn(true);
       List<AppUser> users =
           Provider.of<ItemStore>(context, listen: false).appUsers;
       found = false;
@@ -49,7 +49,10 @@ class _SignIn extends State<SignIn> {
           setState(() {
             loading = false;
           });
+          Provider.of<ItemStore>(context, listen: false).setLoggedIn(true);
           Provider.of<ItemStore>(context, listen: false).setCurrentUser();
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()),
+  );
         } 
       }
       if (found == false) {
