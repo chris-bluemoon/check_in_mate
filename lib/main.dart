@@ -1,6 +1,7 @@
 import 'package:check_in_mate/screens/home_page.dart';
 import 'package:check_in_mate/screens/settings/sign_up/authenticate.dart';
 import 'package:check_in_mate/services/item_store.dart';
+import 'package:check_in_mate/shared/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,10 @@ void main() async {
   runApp(ChangeNotifierProvider(
     create: (context) => ItemStore(),
     child: MaterialApp(
+      title: 'Check In Mate',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system, 
       debugShowCheckedModeBanner: false,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(), 
