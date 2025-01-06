@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:check_in_mate/models/app_user.dart';
+import 'package:check_in_mate/models/schedule.dart';
 import 'package:check_in_mate/services/firestore_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,16 @@ class ItemStore extends ChangeNotifier {
   List<AppUser> _appUsers = [];
   AppUser _appUser = AppUser(id: '0000', email: 'dummy', name: 'no_user');
   bool _loggedIn = false;
+  final List<Schedule> _schedules = [
+    Schedule(id: '0001', email: 'dummy', time: '10:00'),  
+    Schedule(id: '0002', email: 'dummy', time: '16:00'),  
+    Schedule(id: '0003', email: 'dummy', time: '20:00'),  
+  ];
 
   get appUsers => _appUsers;
   get appUser => _appUser;
   get loggedIn => _loggedIn;
+  get schedules => _schedules;
 
   void addAppUser(AppUser user) async {
     await FirestoreService.addAppUser(user);
@@ -77,5 +84,20 @@ class ItemStore extends ChangeNotifier {
       setLoggedIn(true);
       // notifyListeners();
     });
+
+  }
+
+  void addSchedule(Schedule schedule) async {
+    await FirestoreService.addSchedule(schedule);
+    _schedules.add(schedule); 
+    log('Adding a schedule in ItemStore and calling Firestore');
+    notifyListeners();
+  }
+
+  void removeSchedule(String scheduleId) async {
+    await FirestoreService.deleteSchedule(scheduleId);
+    _schedules.remove(scheduleId); 
+    log('Ren=moving a schedule in ItemStore and calling Firestore');
+    notifyListeners();
   }
 }

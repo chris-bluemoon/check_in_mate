@@ -7,13 +7,15 @@ class AppTheme {
     double bodyFontSize = width * 0.04;
     double subtitleFontSize = width * 0.035;
 
+    const myTealColor = Color(0xFF008080);
+
     return ThemeData(
-      primaryColor: Colors.teal,
+      primaryColor: myTealColor,
       colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.orange),
       canvasColor: Colors.white,
-      scaffoldBackgroundColor: Colors.teal, // Teal background
+      scaffoldBackgroundColor: myTealColor,
       appBarTheme: AppBarTheme(
-        color: Colors.teal,
+        color: myTealColor,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
         toolbarTextStyle: TextTheme(
@@ -32,29 +34,33 @@ class AppTheme {
         ).titleLarge,
       ),
       textTheme: TextTheme(
-        bodyLarge: TextStyle(color: Colors.black, fontSize: bodyFontSize),
-        bodyMedium: TextStyle(color: Colors.black54, fontSize: subtitleFontSize),
-        headlineSmall: TextStyle(color: Colors.black, fontSize: titleFontSize, fontWeight: FontWeight.bold),
+        bodyLarge: TextStyle(color: Colors.white, fontSize: bodyFontSize),
+        bodyMedium: TextStyle(color: Colors.white, fontSize: subtitleFontSize),
+        headlineSmall: TextStyle(color: Colors.white, fontSize: titleFontSize, fontWeight: FontWeight.bold),
       ),
       buttonTheme: const ButtonThemeData(
-        buttonColor: Colors.teal,
+        buttonColor: myTealColor,
         textTheme: ButtonTextTheme.primary,
       ),
       inputDecorationTheme: InputDecorationTheme(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(100),
+          borderSide: const BorderSide(color: Colors.white),
+        ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(100),
+          borderSide: const BorderSide(color: Colors.white),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.teal),
+          borderRadius: BorderRadius.circular(100),
+          borderSide: const BorderSide(color: Colors.white),
         ),
         filled: true,
-        fillColor: Colors.grey[200],
+        fillColor: Colors.teal[900],
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.teal,
+        backgroundColor: const Color(0xFF006666),
+        selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
         selectedLabelStyle: TextStyle(fontSize: subtitleFontSize),
         unselectedLabelStyle: TextStyle(fontSize: subtitleFontSize),
@@ -68,11 +74,17 @@ class AppTheme {
         ),
       ),
       iconTheme: const IconThemeData(
-        color: Colors.teal,
+        color: myTealColor,
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: Colors.teal,
+        backgroundColor: myTealColor,
         foregroundColor: Colors.white,
+      ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: WidgetStateProperty.all(myTealColor),
+        checkColor: WidgetStateProperty.all(Colors.white),
+        side: const BorderSide(color: Colors.white), 
+        overlayColor: WidgetStateProperty.all(Colors.white.withOpacity(0.1)),
       ),
     );
   }
@@ -83,13 +95,15 @@ class AppTheme {
     double bodyFontSize = width * 0.04;
     double subtitleFontSize = width * 0.035;
 
+    const myTealColor = Color(0xFF008080);
+    
     return ThemeData(
-      primaryColor: Colors.teal,
+      primaryColor: myTealColor,
       colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.orange),
       canvasColor: Colors.black,
-      scaffoldBackgroundColor: Colors.teal, // Teal background for dark theme
+      scaffoldBackgroundColor: myTealColor, // Teal background for dark theme
       appBarTheme: AppBarTheme(
-        color: Colors.teal,
+        color: myTealColor,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
         toolbarTextStyle: TextTheme(
@@ -113,7 +127,7 @@ class AppTheme {
         titleLarge: TextStyle(color: Colors.white, fontSize: titleFontSize, fontWeight: FontWeight.bold),
       ),
       buttonTheme: const ButtonThemeData(
-        buttonColor: Colors.teal,
+        buttonColor: myTealColor,
         textTheme: ButtonTextTheme.primary,
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -123,14 +137,14 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.teal),
+          borderSide: const BorderSide(color: myTealColor),
         ),
         filled: true,
         fillColor: Colors.grey[800],
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.black,
-        selectedItemColor: Colors.teal,
+        selectedItemColor: myTealColor,
         unselectedItemColor: Colors.grey,
         selectedLabelStyle: TextStyle(fontSize: subtitleFontSize),
         unselectedLabelStyle: TextStyle(fontSize: subtitleFontSize),
@@ -144,10 +158,10 @@ class AppTheme {
         ),
       ),
       iconTheme: const IconThemeData(
-        color: Colors.teal,
+        color: myTealColor,
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: Colors.teal,
+        backgroundColor: myTealColor,
         foregroundColor: Colors.white,
       ),
     );

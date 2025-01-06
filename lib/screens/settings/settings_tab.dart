@@ -13,27 +13,139 @@ class SettingsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final paddingFraction = width * 0.05;
-    final buttonFontSize = width * 0.04;
+    final subtitleFontSize = width * 0.04;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
-      ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(paddingFraction),
-          child: ElevatedButton(
-            onPressed: () => _signOut(context),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: paddingFraction * 2, vertical: paddingFraction),
-              minimumSize: const Size(double.infinity, 50),
-            ),
-            child: Text(
-              'Log Out',
-              style: TextStyle(fontSize: buttonFontSize),
-            ),
+        toolbarHeight: 200,
+        leading: const SizedBox(),
+        leadingWidth: paddingFraction * 0.5,
+        title: Text('Settings', style: TextStyle(fontSize: paddingFraction * 1.5)),
+      ),  
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(paddingFraction, 0, paddingFraction, 0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(paddingFraction),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF006666),
+                  // color: Colors.red,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/check_in_schedule');
+                      },  
+                      child: Row(
+                        children: [
+                          // SizedBox(width: paddingFraction),
+                          Text('Check-ins Schedule', style: TextStyle(color: Colors.white, fontSize: subtitleFontSize)),
+                          const Expanded(child: SizedBox()),
+                          const Icon(Icons.chevron_right, color: Colors.white, size: 80),
+                        ],
+                      ),
+                    ),
+                    Divider(color: Colors.white.withOpacity(0.2)),
+                    Row(
+                      children: [
+                        // SizedBox(width: paddingFraction),
+                        Text('My Relatives', style: TextStyle(color: Colors.white, fontSize: subtitleFontSize)),
+                        const Expanded(child: SizedBox()),
+                        const Icon(Icons.chevron_right, color: Colors.white, size: 80),
+                      ],
+                    ),
+                    Divider(color: Colors.white.withOpacity(0.2)),
+                    Row(
+                      children: [
+                        // SizedBox(width: paddingFraction),
+                        Text('Notifcations', style: TextStyle(color: Colors.white, fontSize: subtitleFontSize)),
+                        const Expanded(child: SizedBox()),
+                        const Icon(Icons.chevron_right, color: Colors.white, size: 80),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: paddingFraction),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(paddingFraction),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF006666),
+                  // color: Colors.red,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        // SizedBox(width: paddingFraction),
+                        Icon(Icons.help_outline, color: Colors.white, size: paddingFraction * 2),
+                        SizedBox(width: paddingFraction),
+                        Text('Help Center', style: TextStyle(color: Colors.white, fontSize: subtitleFontSize)),
+                        // const Expanded(child: SizedBox()),
+                        // const Icon(Icons.chevron_right, color: Colors.white, size: 80),
+                      ],
+                    ),
+                    Divider(height: paddingFraction * 0.8, color: Colors.white.withOpacity(0.2)),
+                    Row(
+                      children: [
+                        // SizedBox(width: paddingFraction),
+                        Icon(Icons.chat_bubble_outline_rounded, color: Colors.white, size: paddingFraction * 2),   
+                        SizedBox(width: paddingFraction),
+                        Text('Contact Us', style: TextStyle(color: Colors.white, fontSize: subtitleFontSize)),
+                      ],
+                    ),
+                    Divider(height: paddingFraction * 0.8, color: Colors.white.withOpacity(0.2)),
+                    GestureDetector(
+                      onTap: () {
+                        _signOut(context);
+                      },    
+                      child: Row(
+                        children: [
+                          // SizedBox(width: paddingFraction),
+                          Icon(Icons.exit_to_app_outlined, color: Colors.white, size: paddingFraction * 2),  
+                          SizedBox(width: paddingFraction),
+                          Text('Sign Out', style: TextStyle(color: Colors.white, fontSize: subtitleFontSize)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: paddingFraction),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(paddingFraction),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF006666),
+                  // color: Colors.red,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        // SizedBox(width: paddingFraction),
+                        Text('Delete Account', style: TextStyle(color: Colors.white, fontSize: subtitleFontSize)),
+                        // const Expanded(child: SizedBox()),
+                        // const Icon(Icons.chevron_right, color: Colors.white, size: 80),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

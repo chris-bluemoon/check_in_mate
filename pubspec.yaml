@@ -47,6 +47,7 @@ dependencies:
   flutter_share: ^2.0.0
   google_sign_in: ^6.2.2
   url_launcher: ^6.3.1
+  time_picker_spinner: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -70,10 +71,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -100,3 +99,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  android: true
+  ios: true
+
+  background_image: "assets/logo.jpg"
+  branding: "assets/logo.jpg"
+
+  android_12: 
+    color: "#008080"
+    image: "assets/logo_splash.png"
+    # branding: "assets/logo.png"
