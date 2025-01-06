@@ -37,13 +37,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue, Colors.purple],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
         child: Center(
           child: Padding(
             padding: EdgeInsets.all(paddingFraction),

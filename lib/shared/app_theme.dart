@@ -11,7 +11,7 @@ class AppTheme {
       primaryColor: Colors.teal,
       colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.orange),
       canvasColor: Colors.white,
-      scaffoldBackgroundColor: Colors.green[50], // Soft green background
+      scaffoldBackgroundColor: Colors.teal, // Teal background
       appBarTheme: AppBarTheme(
         color: Colors.teal,
         elevation: 0,
@@ -87,7 +87,7 @@ class AppTheme {
       primaryColor: Colors.teal,
       colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.orange),
       canvasColor: Colors.black,
-      scaffoldBackgroundColor: Colors.green[900], // Darker green background for dark theme
+      scaffoldBackgroundColor: Colors.teal, // Teal background for dark theme
       appBarTheme: AppBarTheme(
         color: Colors.teal,
         elevation: 0,
@@ -110,7 +110,7 @@ class AppTheme {
       textTheme: TextTheme(
         bodyLarge: TextStyle(color: Colors.white, fontSize: bodyFontSize),
         bodyMedium: TextStyle(color: Colors.white70, fontSize: subtitleFontSize),
-        headlineSmall: TextStyle(color: Colors.white, fontSize: titleFontSize, fontWeight: FontWeight.bold),
+        titleLarge: TextStyle(color: Colors.white, fontSize: titleFontSize, fontWeight: FontWeight.bold),
       ),
       buttonTheme: const ButtonThemeData(
         buttonColor: Colors.teal,
