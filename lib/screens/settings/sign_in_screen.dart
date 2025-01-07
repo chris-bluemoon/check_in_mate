@@ -31,6 +31,9 @@ class _SignInScreenState extends State<SignInScreen> {
           email: _emailController.text,
           password: _passwordController.text,
         );
+        // Provider.of<ItemStore>(context, listen: false).setCurrentUser(_emailController.text);
+        // Navigator.of(context).pushReplacementNamed('/');
+
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to sign in: $e')),
@@ -45,8 +48,6 @@ class _SignInScreenState extends State<SignInScreen> {
     final paddingFraction = width * 0.05;
     final inputFontSize = width * 0.04;
     final buttonFontSize = width * 0.045;
-
-    log('Sign in screen');
 
     return Scaffold(
       body: SingleChildScrollView(

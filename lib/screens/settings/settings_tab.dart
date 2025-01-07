@@ -6,7 +6,7 @@ class SettingsTab extends StatelessWidget {
 
   Future<void> _signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacementNamed('/authenticate');
+    Navigator.of(context).pushReplacementNamed('/sign_in_screen');
   }
 
   @override

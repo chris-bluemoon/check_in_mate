@@ -30,25 +30,21 @@ class ItemStore extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-    Future<dynamic> setCurrentUser() async {
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        // List<AppUser> appUsers = this.appUsers;
-        for (AppUser r in appUsers) {
-          if (r.email == user.email) {
-            // assignAppUser(r);
-            _appUser = r;
-            _loggedIn = true;
-            // notifyListeners();
-          }
-        }
-        log('Logged in as database user now set _appUser: ${_appUser.name}');
+  Future<dynamic> setCurrentUser(providedEmail) async {
+    // User? user = FirebaseAuth.instance.currentUser;
+    for (AppUser r in appUsers) {
+      if (r.email == providedEmail) {
+        _appUser = r;
+        // _loggedIn = true;
+      log('Logged in as database user now set _appUser: ${_appUser.name}');
       } else {
-        _loggedIn = false;
+        log('Could not find a user in Firestore to match log in details.');
+        // _loggedIn = false;
       }
-      return user;
-      // return asda;
     }
+      // return user;
+      // return asda;
+  }
 
   void setLoggedIn(bool loggedIn) {
     _loggedIn = loggedIn;
