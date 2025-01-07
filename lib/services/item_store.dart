@@ -11,11 +11,7 @@ class ItemStore extends ChangeNotifier {
   List<AppUser> _appUsers = [];
   AppUser _appUser = AppUser(id: '0000', email: 'dummy', name: 'no_user');
   bool _loggedIn = false;
-  final List<Schedule> _schedules = [
-    Schedule(id: '0001', email: 'dummy', time: '10:00'),  
-    Schedule(id: '0002', email: 'dummy', time: '16:00'),  
-    Schedule(id: '0003', email: 'dummy', time: '20:00'),  
-  ];
+  List<Schedule> _schedules = [];
 
   get appUsers => _appUsers;
   get appUser => _appUser;
@@ -72,25 +68,32 @@ class ItemStore extends ChangeNotifier {
   }
 
   loadData() {
-    // FirestoreService.getAppUsers().then((appUsers) {
-      // _appUsers.addAll(appUsers.docs.map((doc) => doc.data()).toList());
-    // });
-    log('Loading data');
+    log('Loading user data');
     FirestoreService.getAppUsers().then((querySnapshot) {
       _appUsers = querySnapshot.docs.map((doc) => doc.data()).toList();
       for (AppUser r in _appUsers) {
-        log('Loaded in loadData(): ${r.name}');
+        log('Loaded in users loadData(): ${r.name}');
       }
-      setLoggedIn(true);
+      // setLoggedIn(true);
+      // notifyListeners();
+    });
+
+    log('Loading schedule data');
+    FirestoreService.getSchedules().then((querySnapshot) {
+      _schedules = querySnapshot.docs.map((doc) => doc.data()).toList();
+      for (Schedule s in _schedules) {
+        log('Loaded in schedules loadData(): ${s.id}');
+      }
+      // setLoggedIn(true);
       // notifyListeners();
     });
 
   }
 
   void addSchedule(Schedule schedule) async {
-    await FirestoreService.addSchedule(schedule);
     _schedules.add(schedule); 
-    log('Adding a schedule in ItemStore and calling Firestore');
+    await FirestoreService.addSchedule(schedule);
+    log('Adding a schedule in ItemStore and calling Firestore - wth ID of schedule: ${schedule.id}'); 
     notifyListeners();
   }
 

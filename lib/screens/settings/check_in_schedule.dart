@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:check_in_mate/models/schedule.dart';
 import 'package:check_in_mate/services/item_store.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,28 +17,13 @@ class CheckInSchedule extends StatefulWidget {
 }
 
 class _CheckInScheduleState extends State<CheckInSchedule> {
-  List<Row> scheduleListView = <Row>[];
 
+  List<Schedule> scheduleListView = [];
+  
   @override
   void initState() {
+    scheduleListView = Provider.of<ItemStore>(context, listen: false).schedules; 
     super.initState();
-    scheduleListView = <Row>[
-      Row(
-        children: [
-          Text(Provider.of<ItemStore>(context, listen: false).schedules[0].time, style: const TextStyle(color: Colors.white),),
-          Text(Provider.of<ItemStore>(context, listen: false).schedules[0].id, style: const TextStyle(color: Colors.white),),
-          const Expanded(child: SizedBox()),
-          const Icon(Icons.delete_outline, color: Colors.white, size: 50),
-        ],
-      ),
-      Row(
-        children: [
-          Text(Provider.of<ItemStore>(context, listen: false).schedules[1].time, style: const TextStyle(color: Colors.white),),
-          const Expanded(child: SizedBox()),
-          const Icon(Icons.delete_outline, color: Colors.white, size: 50),
-        ],
-      ),
-    ];
   }
 
   DateTime dateTime = DateTime.now();
@@ -102,7 +89,8 @@ class _CheckInScheduleState extends State<CheckInSchedule> {
                               });
                               setState(() {});
                             },
-                            child: scheduleListView[index],)
+                            child: Text(scheduleListView[index].time,)
+                          )
                         );
                       },
                     ),
@@ -110,18 +98,11 @@ class _CheckInScheduleState extends State<CheckInSchedule> {
                   SizedBox(height: paddingFraction),
                   GestureDetector(
                     onTap: () {
-                      scheduleListView.add(const Row(
-                        children: [
-                          Text('10:00 PM', style: TextStyle(color: Colors.white),),
-                          Expanded(child: SizedBox()),
-                          Icon(Icons.delete_outline, color: Colors.white, size: 50),
-                        ],
-                      ));
-                      // Provider.of<ItemStore>(context, listen: false).addSchedule(Schedule(id: '0', email: 'dummy', time: '10:00 PM'));      
-
                       setState(() {
                         User? email = FirebaseAuth.instance.currentUser;
-                        Provider.of<ItemStore>(context, listen: false).addSchedule(Schedule(id: uuid.v4(), email: email?.displayName ?? 'default_email', time: '11:00 PM'));
+                        String UUID = uuid.v4();
+                        log(UUID);
+                        Provider.of<ItemStore>(context, listen: false).addSchedule(Schedule(id: UUID, email: email?.displayName ?? 'default_email', time: '11:00 PM'));
                       });
                     },  
                     child: Text('Add New Schedule', style: TextStyle(color: Colors.white, fontSize: subtitleFontSize))),

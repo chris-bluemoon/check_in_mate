@@ -1,8 +1,6 @@
 import 'dart:math';
 
-import 'package:check_in_mate/services/item_store.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -24,7 +22,6 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    final randomTime = _generateRandomTime();
     final width = MediaQuery.of(context).size.width;
     final paddingFraction = width * 0.05;
     final titleFontSize = width * 0.06;
@@ -56,8 +53,7 @@ class _HomeTabState extends State<HomeTab> {
                         style: TextStyle(fontSize: titleFontSize, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: paddingFraction),
-                      Text(
-                        Provider.of<ItemStore>(context).schedules[1].time.toString(),
+                      Text('To Set',
                         style: TextStyle(fontSize: timeFontSize, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: paddingFraction),

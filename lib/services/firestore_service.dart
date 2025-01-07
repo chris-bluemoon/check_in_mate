@@ -13,7 +13,7 @@ class FirestoreService {
       toFirestore: (AppUser u, _) => u.toFirestore()
   );
 
-  static final refSchedule = FirebaseFirestore.instance
+  static final refSchedules = FirebaseFirestore.instance
     .collection('schedule')
     .withConverter(
       fromFirestore: Schedule.fromFirestore, 
@@ -25,13 +25,17 @@ class FirestoreService {
   }
 
   static Future<void> addSchedule(Schedule schedule) async {
-    log('adding schedule to firestore');
-    await refSchedule.doc(schedule.id).set(schedule);
+    log('adding schedule to firestore w0ht id ${schedule.id}');
+    await refSchedules.doc(schedule.id).set(schedule);
   }
 
   static Future<void> deleteSchedule(String scheduleId) async {
     log('deleting $scheduleId from firestore');
-    await refSchedule.doc(scheduleId).delete();
+    await refSchedules.doc(scheduleId).delete();
+  }
+
+  static Future<QuerySnapshot<Schedule>> getSchedules() {
+    return refSchedules.get();
   }
 
   static Future<void> updateAppUser(AppUser user) async {
