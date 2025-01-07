@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _tabs = [
-    HomeTab(),
+    const HomeTab(),
     const SettingsTab(),
     const SettingsTab(),
     // const HomeTab(),
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
   }
 
     void initialization() async {
-      log('initializing...');
+      log('initializing...from home_page.dart');
     // This is where you can initialize the resources needed by your app while
     // the splash screen is displayed.  Remove the following example because
     // delaying the user experience is a bad design practice!

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:check_in_mate/models/app_user.dart';
 import 'package:check_in_mate/models/schedule.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,12 +23,10 @@ class FirestoreService {
   }
 
   static Future<void> addSchedule(Schedule schedule) async {
-    log('adding schedule to firestore w0ht id ${schedule.id}');
     await refSchedules.doc(schedule.id).set(schedule);
   }
 
   static Future<void> deleteSchedule(String scheduleId) async {
-    log('deleting $scheduleId from firestore');
     await refSchedules.doc(scheduleId).delete();
   }
 

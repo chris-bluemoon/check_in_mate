@@ -11,7 +11,7 @@ class ItemStore extends ChangeNotifier {
   List<AppUser> _appUsers = [];
   AppUser _appUser = AppUser(id: '0000', email: 'dummy', name: 'no_user');
   bool _loggedIn = false;
-  List<Schedule> _schedules = [];
+  final List<Schedule> _schedules = [];
 
   get appUsers => _appUsers;
   get appUser => _appUser;
@@ -30,20 +30,19 @@ class ItemStore extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<dynamic> setCurrentUser(providedEmail) async {
-    // User? user = FirebaseAuth.instance.currentUser;
+  Future<dynamic> setCurrentUser() async {
+    User? user = FirebaseAuth.instance.currentUser;
     for (AppUser r in appUsers) {
-      if (r.email == providedEmail) {
+      if (user != null && r.email == user.email) {
         _appUser = r;
         // _loggedIn = true;
-      log('Logged in as database user now set _appUser: ${_appUser.name}');
       } else {
-        log('Could not find a user in Firestore to match log in details.');
         // _loggedIn = false;
       }
     }
       // return user;
-      // return asda;
+      log('setCurrentUser() user: ${_appUser.email}'); 
+      log('Firebase user is: ${user!.email}');
   }
 
   void setLoggedIn(bool loggedIn) {
@@ -58,27 +57,44 @@ class ItemStore extends ChangeNotifier {
       }
     } else {
       FirebaseAuth.instance.signOut();
-      log('Set logged in to false');  
     }
       notifyListeners();
   }
 
   loadData() {
-    log('Loading user data');
+    if (_appUsers.isNotEmpty) {
+      _appUsers.clear();
+    } else {
+      log('No users to clear, appUsers is empty');
+    }
+        
     FirestoreService.getAppUsers().then((querySnapshot) {
       _appUsers = querySnapshot.docs.map((doc) => doc.data()).toList();
+      User? user = FirebaseAuth.instance.currentUser;
       for (AppUser r in _appUsers) {
-        log('Loaded in users loadData(): ${r.name}');
+        if (user != null && r.email == user.email) {
+          log('Assigning _appUser: ${r.email}');
+          _appUser = r;
+        } 
       }
+      // setCurrentUser();
       // setLoggedIn(true);
       // notifyListeners();
     });
 
-    log('Loading schedule data');
+    if (_schedules.isNotEmpty) {
+      _schedules.clear();
+    } else {
+      log('No schedules to clear, schedules is empty');
+    }
     FirestoreService.getSchedules().then((querySnapshot) {
-      _schedules = querySnapshot.docs.map((doc) => doc.data()).toList();
-      for (Schedule s in _schedules) {
-        log('Loaded in schedules loadData(): ${s.id}');
+      List<Schedule> allSchedules = querySnapshot.docs.map((doc) => doc.data()).toList();
+      for (Schedule s in allSchedules) {
+        if (s.email == _appUser.email) {
+          _schedules.add(s);
+          log('Loaded in schedules loadData(): ${s.id}');
+        }
+        // _schedules = querySnapshot.docs.map((doc) => doc.data()).toList();
       }
       // setLoggedIn(true);
       // notifyListeners();
@@ -89,14 +105,12 @@ class ItemStore extends ChangeNotifier {
   void addSchedule(Schedule schedule) async {
     _schedules.add(schedule); 
     await FirestoreService.addSchedule(schedule);
-    log('Adding a schedule in ItemStore and calling Firestore - wth ID of schedule: ${schedule.id}'); 
     notifyListeners();
   }
 
   void removeSchedule(String scheduleId) async {
     await FirestoreService.deleteSchedule(scheduleId);
     _schedules.remove(scheduleId); 
-    log('Ren=moving a schedule in ItemStore and calling Firestore');
     notifyListeners();
   }
 }

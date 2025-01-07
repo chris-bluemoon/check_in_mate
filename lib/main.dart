@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:check_in_mate/screens/home_page.dart';
+import 'package:check_in_mate/screens/settings/check_in_schedule.dart';
 import 'package:check_in_mate/screens/settings/sign_in_screen.dart';
 import 'package:check_in_mate/screens/splash_screen.dart'; // Add this line
 import 'package:check_in_mate/services/item_store.dart';
@@ -41,6 +44,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
+            log('snapshot: ${snapshot.hasData}');
+            Provider.of<ItemStore>(context, listen: false).loadData();
             if (snapshot.hasData) {
               return const HomePage();
             } else {
@@ -49,8 +54,9 @@ class MyApp extends StatelessWidget {
           },
         ),
         // '/authenticate': (context) => const Authenticate(),
-        '/sign_in': (context) => const SignInScreen(),
+        '/sign_in_screen': (context) => const SignInScreen(),
         '/splash': (context) => const SplashScreen(),
+        '/check_in_schedule': (context) => const CheckInSchedule(),
       },
     );
   }

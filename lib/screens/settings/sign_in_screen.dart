@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:check_in_mate/services/item_store.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:provider/provider.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -31,9 +33,7 @@ class _SignInScreenState extends State<SignInScreen> {
           email: _emailController.text,
           password: _passwordController.text,
         );
-        // Provider.of<ItemStore>(context, listen: false).setCurrentUser(_emailController.text);
-        // Navigator.of(context).pushReplacementNamed('/');
-
+        Provider.of<ItemStore>(context, listen: false).setCurrentUser();
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to sign in: $e')),
@@ -100,7 +100,6 @@ class _SignInScreenState extends State<SignInScreen> {
                       width: width * 0.6,
                       child: TextFormField(
                         onChanged: (pwordText) {
-                          log('password changed');
                           if (_emailController.text.isNotEmpty && pwordText.isNotEmpty) {
                             showSignInButton = true;
                           } else {
@@ -151,7 +150,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void initialization() async {
-    log('initializing...');
+    log('initializing...from SignInScreen');
     // This is where you can initialize the resources needed by your app while
     // the splash screen is displayed.  Remove the following example because
     // delaying the user experience is a bad design practice!

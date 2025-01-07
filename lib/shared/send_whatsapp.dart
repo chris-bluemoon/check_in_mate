@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:check_in_mate/shared/whatsapp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +11,6 @@ class SendWhatsapp extends StatelessWidget {
     return Center(
       child: IconButton(
         onPressed: () async {
-          log('Tapped whatsapp send');
       try {
         await openWhatsApp(
           phone: '+65 91682725',

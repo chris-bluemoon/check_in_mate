@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:check_in_mate/shared/line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +11,6 @@ class SendLine extends StatelessWidget {
     return Center(
       child: IconButton(
         onPressed: () async {
-          log('Tapped LINE send');
       try {
         await openLineApp(
           phone: '+660623271758',
